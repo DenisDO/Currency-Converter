@@ -1,4 +1,8 @@
 
+const app = angular.module('currencyApp', []);
 
+app.controller('CurrencyController', [function() {
+    
+}]);
 
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlcnZpY2VzLmpzIiwiY29udHJvbGxlci5qcyIsIm1haW4uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUNBQTtBQ0FBIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiIiwiIiwiIl19
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNlcnZpY2VzLmpzIiwiY29udHJvbGxlci5qcyIsIm1haW4uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUNBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FDSkEiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyIiLCJjb25zdCBhcHAgPSBhbmd1bGFyLm1vZHVsZSgnY3VycmVuY3lBcHAnLCBbXSk7XHJcblxyXG5hcHAuY29udHJvbGxlcignQ3VycmVuY3lDb250cm9sbGVyJywgW2Z1bmN0aW9uKCkge1xyXG4gICAgXHJcbn1dKTsiLCIiXX0=
