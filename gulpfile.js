@@ -33,7 +33,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('script', function() {
-    return gulp.src([path.src.scripts.services, path.src.scripts.controller, path.src.scripts.main])
+    return gulp.src([path.src.scripts.main, path.src.scripts.services, path.src.scripts.controller])
       .pipe(sourcemaps.init())
       .pipe(concat('index.js'))
       .pipe(sourcemaps.write())
@@ -69,9 +69,9 @@ gulp.task('server', ['html', 'script', 'style'], function(done) {
 gulp.task('watch', function() {
   gulp.watch(path.src.html, ['html']);
   gulp.watch(path.src.styles, ['style']);
+  gulp.watch(path.src.scripts.main, ['script']);
   gulp.watch(path.src.scripts.services, ['script']);
   gulp.watch(path.src.scripts.controller, ['script']);
-  gulp.watch(path.src.scripts.main, ['script']);
 });
 
 gulp.task('default', ['watch', 'server']);
