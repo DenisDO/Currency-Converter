@@ -1,39 +1,41 @@
 app.controller('CurrencyController', [
     'getCurrency',
-    'currencies',
+    'getListOfCurrencies',
     'defaultFrom',
     'defaultTo',
     'commissionPercantage',
     'defaultPercantage',
-    function(getCurrency, currencies, defaultFrom, defaultTo, commissionPercantage, defaultPercantage) {
+    function(getCurrency, getListOfCurrencies, defaultFrom, defaultTo, commissionPercantage, defaultPercantage) {
 
-    this.currencies = currencies;
     this.defaultFrom = defaultFrom;
     this.defaultTo = defaultTo;
     this.commissionPercantage = commissionPercantage;
     this.defaultPercantage = defaultPercantage;
-    this.method = 'buy';
+    this.listOfCurrencies = [];
 
-    getCurrency.getData().then(data => {
-        this.data = data;
+    getListOfCurrencies.getData().then(data => {
+        for (const key in data) {
+            this.listOfCurrencies.push(data[key].id);
+        };
     });
 
-    this.setMethod = (method) => {
-        this.method = method;
-        this.exchangeCurrency();
+    this.toExchange = () => {
+        getCurrency.getData(this.defaultFrom, this.defaultTo)
+            .then(data => {
+                this.rate = data;
+            })
+            .then(() => {
+                this.inputToGet = this.inputToExchange * this.rate;
+            });
     };
 
-    this.exchangeCurrency = () => {
-        const rateToBuy = this.data.find(el => el.ccy === this.defaultFrom)[this.method];
-        const rateToSell = this.data.find(el => el.ccy === this.defaultTo)[this.method];
-        const exchangeValue = this.inputToExchange * rateToBuy / rateToSell;
-        this.inputToGet = +exchangeValue.toFixed(2);
-    };
-
-    this.getExchangeCurrency = () => {
-        const rateToBuy = this.data.find(el => el.ccy === this.defaultTo)[this.method];
-        const rateToSell = this.data.find(el => el.ccy === this.defaultFrom)[this.method];
-        const exchangeValue = this.inputToGet * rateToBuy / rateToSell;
-        this.inputToExchange = +exchangeValue.toFixed(2);
-    };
+    this.toGet = () => {
+        getCurrency.getData(this.defaultTo, this.defaultFrom)
+            .then(data => {
+                this.rate = data;
+            })
+            .then(() => {
+                this.inputToExchange = this.inputToGet * this.rate;
+            });
+    }
 }]);
