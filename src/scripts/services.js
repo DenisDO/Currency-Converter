@@ -23,7 +23,7 @@ app.service('getCurrency', ['$http', 'baseURL', 'APIkey', function($http, baseUR
       method: 'GET',
       url: `${baseURL}convert?apiKey=${APIkey}&q=${curFrom}_${curTo}&compact=ultra`
     }).then(({data}) => {
-        this.data = data
+      this.data = data[Object.keys(data)];
       return this.data;
     });
   }
