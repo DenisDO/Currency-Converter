@@ -22,15 +22,17 @@
       </div>
 
       <div class="row">
-          <div class="col-12 col-sm-6 form-group">
-            <label for="toExchange" class="lead">How much to exchange:</label>
-            <input type="number" id="toExchange" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toExchange()" ng-model="curCont.inputToExchange">
-          </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="toGet" class="lead">How much to get:</label>
-            <input type="number" id="toGet" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toGet()" ng-model="curCont.inputToGet">
-          </div>
+        <div class="col-12 col-sm-6 form-group">
+          <label for="toExchange" class="lead">How much to exchange:</label>
+          <input type="number" id="toExchange" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toExchange()" ng-model="curCont.inputToExchange">
         </div>
+        <div class="col-12 col-sm-6 form-group">
+          <label for="toGet" class="lead">How much to get:</label>
+          <input type="number" id="toGet" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toGet()" ng-model="curCont.inputToGet">
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-outline-secondary btn-sm btn-block border" ng-click="curCont.revertExchange()">Revert</button>
 
       <div class="row">
         <div class="col form-group">
