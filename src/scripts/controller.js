@@ -41,4 +41,13 @@ app.controller('CurrencyController', [
                 this.inputToExchange = +exchangeValue.toFixed(2);
             });
     }
+
+    this.revertExchange = () => {
+        [this.defaultFrom, this.defaultTo] = [this.defaultTo, this.defaultFrom];
+        [this.inputToExchange, this.inputToGet] = [this.inputToGet, this.inputToExchange];
+        getCurrency.getData(this.defaultFrom, this.defaultTo)
+        .then(data => {
+            this.rate = data;
+        });
+    }
 }]);

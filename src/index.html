@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col form-group">
           <label for="commission" class="lead">Commission:</label>
-          <select class="form-control" id="commission" ng-model="curCont.defaultPercantage" ng-options="percantage + '%' for percantage in curCont.commissionPercantage" required></select>
+          <select class="form-control" id="commission" ng-change="curCont.updatePercentage()" ng-model="curCont.defaultPercantage" ng-options="percantage + '%' for percantage in curCont.commissionPercantage" required></select>
         </div>
       </div>
 
