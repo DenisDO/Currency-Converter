@@ -23,7 +23,7 @@ app.service('calcExchange', [function() {
   };
 }]);
 
-app.service('getCurrency', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
+app.service('getRate', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
   this.getData = (curFrom, curTo) => {
     return $http({
       method: 'GET',
