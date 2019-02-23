@@ -1,17 +1,35 @@
-app.constant('baseURL', 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5');
-app.constant('currencies', ['USD', 'EUR', 'RUR']);
+app.constant('baseURL', 'https://free.currencyconverterapi.com/api/v6/');
+app.constant('APIkey', '4483a148b31992545c54');
 app.constant('defaultFrom', 'EUR');
-app.constant('defaultTo', 'RUR');
-app.constant('commissionPercantage', ['0%', '2%', '5%', '10%']);
-app.constant('defaultPercantage', '0%');
+app.constant('defaultTo', 'UAH');
+app.constant('commissionPercantage', [0, 2, 5, 10]);
+app.constant('defaultPercantage', 0);
 
-app.service('getCurrency', ['$http', 'baseURL', function($http, baseURL) {
+app.service('getListOfCurrencies', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
   this.getData = () => {
     return $http({
       method: 'GET',
-      url: baseURL
+      url: `${baseURL}currencies?apiKey=${APIkey}`
     }).then(({data}) => {
-        this.data = data
+        this.listOfCurrencies = data.results;
+      return this.listOfCurrencies;
+    });
+  }
+}]);
+
+app.service('calcExchange', [function() {
+  this.calcExchangeValue = (value, rate, percentage) => {
+    return (value * rate) + (value * rate) / 100 * percentage;
+  };
+}]);
+
+app.service('getRate', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
+  this.getData = (curFrom, curTo) => {
+    return $http({
+      method: 'GET',
+      url: `${baseURL}convert?apiKey=${APIkey}&q=${curFrom}_${curTo}&compact=ultra`
+    }).then(({data}) => {
+      this.data = data[Object.keys(data)];
       return this.data;
     });
   }

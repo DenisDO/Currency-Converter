@@ -10,42 +10,34 @@
   <body ng-app="currencyApp" ng-controller="CurrencyController as curCont">
     <h1 class="display-4 text-center">Currency Converter</h1>
     <div class="converter__wrapper bg-light rounded col-lg-6 mx-auto">
-
-      <div class="btn-group btn-group-toggle col-lg-12" data-toggle="buttons">
-        <label class="btn btn-light active">
-          <input type="radio" name="options" id="option1" autocomplete="off" checked ng-click="curCont.setMethod('buy')"> Buy
-        </label>
-        <label class="btn btn-light">
-          <input type="radio" name="options" id="option2" autocomplete="off" ng-click="curCont.setMethod('sale')"> Sell
-        </label>
-      </div>
-
       <div class="row">
         <div class="col-12 col-sm-6 form-group">
           <label for="fromCurrency" class="lead">From:</label>
-          <select class="form-control" id="fromCurrency" ng-model="curCont.defaultFrom" ng-options="currency for currency in curCont.currencies | excludeFrom:curCont.defaultTo" required></select>
+          <select class="form-control" id="fromCurrency" ng-model="curCont.defaultFrom" ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultTo" required></select>
         </div>
         <div class="col-12 col-sm-6 form-group">
           <label for="toCurrency" class="lead">To:</label>
-          <select class="form-control" id="toCurrency" ng-model="curCont.defaultTo" ng-options="currency for currency in curCont.currencies | excludeFrom:curCont.defaultFrom" required></select>
+          <select class="form-control" id="toCurrency" ng-model="curCont.defaultTo" ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultFrom" required></select>
         </div>
       </div>
 
       <div class="row">
-          <div class="col-12 col-sm-6 form-group">
-            <label for="toExchange" class="lead">How much to exchange:</label>
-            <input type="number" id="toExchange" type="text" class="form-control" placeholder="0.00" ng-change="curCont.exchangeCurrency()" ng-model="curCont.inputToExchange">
-          </div>
-          <div class="col-12 col-sm-6 form-group">
-            <label for="toGet" class="lead">How much to get:</label>
-            <input type="number" id="toGet" type="text" class="form-control" placeholder="0.00" ng-change="curCont.getExchangeCurrency()" ng-model="curCont.inputToGet">
-          </div>
+        <div class="col-12 col-sm-6 form-group">
+          <label for="toExchange" class="lead">How much to exchange:</label>
+          <input type="number" id="toExchange" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toExchange()" ng-model="curCont.inputToExchange">
         </div>
+        <div class="col-12 col-sm-6 form-group">
+          <label for="toGet" class="lead">How much to get:</label>
+          <input type="number" id="toGet" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toGet()" ng-model="curCont.inputToGet">
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-outline-secondary btn-sm btn-block border" ng-click="curCont.revertExchange()">Revert</button>
 
       <div class="row">
         <div class="col form-group">
           <label for="commission" class="lead">Commission:</label>
-          <select class="form-control" id="commission" ng-model="curCont.defaultPercantage" ng-options="percantage for percantage in curCont.commissionPercantage" required></select>
+          <select class="form-control" id="commission" ng-change="curCont.updatePercentage()" ng-model="curCont.defaultPercantage" ng-options="percantage + '%' for percantage in curCont.commissionPercantage" required></select>
         </div>
       </div>
 
