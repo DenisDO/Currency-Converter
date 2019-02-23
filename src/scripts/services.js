@@ -17,6 +17,12 @@ app.service('getListOfCurrencies', ['$http', 'baseURL', 'APIkey', function($http
   }
 }]);
 
+app.service('calcExchange', [function() {
+  this.calcExchangeValue = (value, rate, percentage) => {
+    return (value * rate) + (value * rate) / 100 * percentage;
+  };
+}]);
+
 app.service('getCurrency', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
   this.getData = (curFrom, curTo) => {
     return $http({
