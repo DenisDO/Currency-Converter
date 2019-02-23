@@ -3,9 +3,10 @@ app.controller('CurrencyController', [
     'getListOfCurrencies',
     'defaultFrom',
     'defaultTo',
+    'calcExchange',
     'commissionPercantage',
     'defaultPercantage',
-    function(getCurrency, getListOfCurrencies, defaultFrom, defaultTo, commissionPercantage, defaultPercantage) {
+    function(getCurrency, getListOfCurrencies, defaultFrom, defaultTo, calcExchange, commissionPercantage, defaultPercantage) {
 
     this.defaultFrom = defaultFrom;
     this.defaultTo = defaultTo;
@@ -25,7 +26,8 @@ app.controller('CurrencyController', [
                 this.rate = data;
             })
             .then(() => {
-                this.inputToGet = this.inputToExchange * this.rate;
+                const exchangeValue = calcExchange.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
+                this.inputToGet = +exchangeValue.toFixed(2);
             });
     };
 
@@ -35,7 +37,8 @@ app.controller('CurrencyController', [
                 this.rate = data;
             })
             .then(() => {
-                this.inputToExchange = this.inputToGet * this.rate;
+                const exchangeValue = calcExchange.calcExchangeValue(this.inputToGet, this.rate, this.defaultPercantage);
+                this.inputToExchange = +exchangeValue.toFixed(2);
             });
     }
 }]);
