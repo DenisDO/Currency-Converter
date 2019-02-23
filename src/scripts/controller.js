@@ -50,4 +50,9 @@ app.controller('CurrencyController', [
             this.rate = data;
         });
     }
+
+    this.updatePercentage = () => {
+        const exchangeValue = calcExchange.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
+        this.inputToGet = +exchangeValue.toFixed(2);
+    }
 }]);
