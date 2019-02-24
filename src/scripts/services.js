@@ -29,14 +29,12 @@ app.service('calcExchange', [function() {
 
 app.service('getRate', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
   this.getData = (curFrom, curTo) => {
-    $http({
+    return $http({
       method: 'GET',
       url: `${baseURL}convert?apiKey=${APIkey}&q=${curFrom}_${curTo}&compact=ultra`
     }).then(({data}) => {
-      this.rate = data[Object.keys(data)];
+      return data[Object.keys(data)];
     });
-
-    return this.rate;
   }
 }]);
 
