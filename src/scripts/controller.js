@@ -36,8 +36,6 @@ app.controller('CurrencyController', [
         getRate.getData(this.defaultFrom, this.defaultTo)
             .then(data => {
                 this.rate = data;
-            })
-            .then(() => {
                 this.toExchange();
             });
     };
