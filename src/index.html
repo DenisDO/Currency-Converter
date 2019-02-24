@@ -5,7 +5,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
     <script src="./scripts/index.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./styles/main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+          crossorigin="anonymous">
   </head>
   <body ng-app="currencyApp" ng-controller="CurrencyController as curCont">
     <h1 class="display-4 text-center">Currency Converter</h1>
@@ -13,31 +15,58 @@
       <div class="row">
         <div class="col-12 col-sm-6 form-group">
           <label for="fromCurrency" class="lead">From:</label>
-          <select class="form-control" id="fromCurrency" ng-model="curCont.defaultFrom" ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultTo" required></select>
+          <select class="form-control" 
+                  id="fromCurrency" 
+                  ng-model="curCont.defaultFrom" 
+                  ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultTo" 
+                  required></select>
         </div>
         <div class="col-12 col-sm-6 form-group">
           <label for="toCurrency" class="lead">To:</label>
-          <select class="form-control" id="toCurrency" ng-model="curCont.defaultTo" ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultFrom" required></select>
+          <select class="form-control"
+                  id="toCurrency" 
+                  ng-model="curCont.defaultTo" 
+                  ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultFrom" 
+                  required></select>
         </div>
       </div>
 
       <div class="row">
         <div class="col-12 col-sm-6 form-group">
           <label for="toExchange" class="lead">How much to exchange:</label>
-          <input type="number" id="toExchange" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toExchange()" ng-model="curCont.inputToExchange">
+          <input type="number" 
+                 id="toExchange" 
+                 type="text" 
+                 class="form-control" 
+                 placeholder="0.00" 
+                 ng-change="curCont.toExchange()" 
+                 ng-model="curCont.inputToExchange">
         </div>
         <div class="col-12 col-sm-6 form-group">
           <label for="toGet" class="lead">How much to get:</label>
-          <input type="number" id="toGet" type="text" class="form-control" placeholder="0.00" ng-change="curCont.toGet()" ng-model="curCont.inputToGet">
+          <input type="number" 
+                 id="toGet" 
+                 type="text" 
+                 class="form-control" 
+                 placeholder="0.00" 
+                 ng-change="curCont.toGet()" 
+                 ng-model="curCont.inputToGet">
         </div>
       </div>
 
-      <button type="button" class="btn btn-outline-secondary btn-sm btn-block border" ng-click="curCont.revertExchange()">Revert</button>
+      <button type="button" 
+              class="btn btn-outline-secondary btn-sm btn-block border" 
+              ng-click="curCont.revertExchange()">Revert</button>
 
       <div class="row">
         <div class="col form-group">
           <label for="commission" class="lead">Commission:</label>
-          <select class="form-control" id="commission" ng-change="curCont.updatePercentage()" ng-model="curCont.defaultPercantage" ng-options="percantage + '%' for percantage in curCont.commissionPercantage" required></select>
+          <select class="form-control" 
+                  id="commission" 
+                  ng-change="curCont.updatePercentage()"
+                  ng-model="curCont.defaultPercantage" 
+                  ng-options="percantage + '%' for percantage in curCont.commissionPercantage" 
+                  required></select>
         </div>
       </div>
 
