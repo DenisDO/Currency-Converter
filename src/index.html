@@ -19,7 +19,7 @@
                   id="fromCurrency" 
                   ng-model="curCont.defaultFrom" 
                   ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultTo"
-                  ng-change="curCont.updateRate()"
+                  ng-change="curCont.updateData()"
                   required></select>
         </div>
         <div class="col-12 col-sm-6 form-group">
@@ -28,7 +28,7 @@
                   id="toCurrency" 
                   ng-model="curCont.defaultTo" 
                   ng-options="currency for currency in curCont.listOfCurrencies | excludeFrom:curCont.defaultFrom"
-                  ng-change="curCont.updateRate()"
+                  ng-change="curCont.updateData()"
                   required></select>
         </div>
       </div>

@@ -8,8 +8,6 @@ app.controller('CurrencyController', [
     this.listOfCurrencies = getListOfCurrencies.getData();
     this.defaultFrom = 'EUR';
     this.defaultTo = 'UAH';
-    this.inputToExchange = 0;
-    this.inputToGet = 0;
     this.commissionPercantage = commissionPercantage;
     this.defaultPercantage = 0;
 
@@ -26,7 +24,7 @@ app.controller('CurrencyController', [
     this.revertExchange = () => {
         [this.defaultFrom, this.defaultTo] = [this.defaultTo, this.defaultFrom];
         [this.inputToExchange, this.inputToGet] = [this.inputToGet, this.inputToExchange];
-        this.updateRate();
+        this.updateData();
     };
 
     this.updatePercentage = () => {
@@ -34,10 +32,14 @@ app.controller('CurrencyController', [
         this.inputToGet = +exchangeValue.toFixed(2);
     };
 
-    this.updateRate = () => {
-        this.rate = getRate.getData(this.defaultFrom, this.defaultTo);
-        console.log(this.rate);
+    this.updateData = () => {
+        getRate.getData(this.defaultFrom, this.defaultTo)
+            .then(data => {
+                this.rate = data;
+            });
+
+        this.toExchange();
     };
 
-    this.updateRate();
+    this.updateData();
 }]);
