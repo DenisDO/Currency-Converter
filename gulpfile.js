@@ -3,7 +3,6 @@ const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 const sass = require('gulp-sass');
-const imagemin = require('gulp-imagemin');
 const browserSync = require('browser-sync').create();
 
 
@@ -12,8 +11,7 @@ const path = {
       baseDir: 'app/',
       html: 'app/',
       scripts: 'app/scripts/',
-      styles: 'app/styles/',
-      images: 'app/images/'
+      styles: 'app/styles/'
     },
     src: {
       html: 'src/index.html',
@@ -22,8 +20,7 @@ const path = {
           services: 'src/scripts/services.js',
           controller: 'src/scripts/controller.js'
       },
-      styles: 'src/styles/main.scss',
-      images: 'src/images/**/*.{jpg,jpeg,png}'
+      styles: 'src/styles/main.scss'
     }
 };
 
@@ -40,19 +37,23 @@ gulp.task('script', function() {
       .pipe(gulp.dest(path.app.scripts));
 });
 
+gulp.task('script:build', function() {
+  return gulp.src([path.src.scripts.main, path.src.scripts.services, path.src.scripts.controller])
+    .pipe(concat('index.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(path.app.scripts));
+});
+
 gulp.task('style', function() {
     gulp.src(path.src.styles)
       .pipe(sass())
       .pipe(gulp.dest(path.app.styles));
 });
 
-gulp.task('image', function() {
-    gulp.src(path.src.images)
-      .pipe(imagemin({
-        progressive: true,
-        interlaced: true
-      }))
-      .pipe(gulp.dest(path.app.images))
+gulp.task('style:build', function() {
+  gulp.src(path.src.styles)
+    .pipe(sass())
+    .pipe(gulp.dest(path.app.styles));
 });
 
 gulp.task('server', ['html', 'script', 'style'], function(done) {
@@ -75,3 +76,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['watch', 'server']);
+gulp.task('build', ['html', 'script:build', 'style:build']);
