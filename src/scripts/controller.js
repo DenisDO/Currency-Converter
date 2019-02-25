@@ -1,24 +1,20 @@
 app.controller('CurrencyController', [
-    'getRate',
-    'getListOfCurrencies',
-    'calcExchange',
+    'APIservice',
     'feePercantage',
-    function(getRate, getListOfCurrencies, calcExchange, feePercantage) {
+    'defaultFrom',
+    'defaultTo',
+    'defaultPercantage',
+    function(APIservice, feePercantage, defaultFrom, defaultTo, defaultPercantage) {
 
-    this.listOfCurrencies = getListOfCurrencies.getData();
-    this.defaultFrom = 'EUR';
-    this.defaultTo = 'UAH';
+    this.listOfCurrencies = APIservice.getListOfCurrencies();
+    this.defaultFrom = defaultFrom;
+    this.defaultTo = defaultTo;
     this.feePercantage = feePercantage;
-    this.defaultPercantage = 0;
+    this.defaultPercantage = defaultPercantage;
 
     this.toExchange = () => {
-        const exchangeValue = calcExchange.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
+        const exchangeValue = APIservice.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
         this.inputToGet = +exchangeValue.toFixed(2);
-    };
-
-    this.toGet = () => {
-        const exchangeValue = calcExchange.calcExchangeValue(this.inputToGet, this.rate, this.defaultPercantage);
-        this.inputToExchange = +exchangeValue.toFixed(2);
     };
 
     this.revertExchange = () => {
@@ -28,7 +24,7 @@ app.controller('CurrencyController', [
     };
 
     this.updateData = () => {
-        getRate.getData(this.defaultFrom, this.defaultTo)
+        APIservice.getRate(this.defaultFrom, this.defaultTo)
             .then(data => {
                 this.rate = data;
                 this.toExchange();
