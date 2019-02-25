@@ -22,4 +22,9 @@ This converter uses free version of [Currency Converter API](http://free.currenc
 </details>
 
 ## :rocket: Demo
-![Currency Converter GIF](https://media.giphy.com/media/2UA9gVaIwhasyNyx04/giphy.gif)
+
+[Click here to see demo!](https://denisdo.github.io/Currency-Converter/app/)
+
+<p align="center">
+  <img src="https://media.giphy.com/media/2UA9gVaIwhasyNyx04/giphy.gif" alt="Currency Converter GIF">
+</p>
