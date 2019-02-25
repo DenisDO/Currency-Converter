@@ -23,7 +23,7 @@ app.service('getListOfCurrencies', ['$http', 'baseURL', 'APIkey', function($http
 
 app.service('calcExchange', [function() {
   this.calcExchangeValue = (value, rate, percentage) => {
-    return (value * rate) + (value * rate) / 100 * percentage;
+    return (value * rate) - (value * rate) / 100 * percentage;
   };
 }]);
 
