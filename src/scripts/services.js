@@ -1,6 +1,6 @@
 app.constant('baseURL', 'https://free.currencyconverterapi.com/api/v6/');
 app.constant('APIkey', '4483a148b31992545c54');
-app.constant('commissionPercantage', [0, 2, 5, 10]);
+app.constant('feePercantage', [0, 2, 5, 10]);
 
 app.service('getListOfCurrencies', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
   const listOfCurrencies = [];

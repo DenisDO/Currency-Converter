@@ -2,13 +2,13 @@ app.controller('CurrencyController', [
     'getRate',
     'getListOfCurrencies',
     'calcExchange',
-    'commissionPercantage',
-    function(getRate, getListOfCurrencies, calcExchange, commissionPercantage) {
+    'feePercantage',
+    function(getRate, getListOfCurrencies, calcExchange, feePercantage) {
 
     this.listOfCurrencies = getListOfCurrencies.getData();
     this.defaultFrom = 'EUR';
     this.defaultTo = 'UAH';
-    this.commissionPercantage = commissionPercantage;
+    this.feePercantage = feePercantage;
     this.defaultPercantage = 0;
 
     this.toExchange = () => {
