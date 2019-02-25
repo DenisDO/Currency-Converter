@@ -65,7 +65,7 @@
           <label for="commission" class="lead">Commission:</label>
           <select class="form-control" 
                   id="commission" 
-                  ng-change="curCont.updatePercentage()"
+                  ng-change="curCont.toExchange()"
                   ng-model="curCont.defaultPercantage" 
                   ng-options="percantage + '%' for percantage in curCont.commissionPercantage" 
                   required></select>

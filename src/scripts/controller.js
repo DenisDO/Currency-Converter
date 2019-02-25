@@ -27,11 +27,6 @@ app.controller('CurrencyController', [
         this.updateData();
     };
 
-    this.updatePercentage = () => {
-        const exchangeValue = calcExchange.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
-        this.inputToGet = +exchangeValue.toFixed(2);
-    };
-
     this.updateData = () => {
         getRate.getData(this.defaultFrom, this.defaultTo)
             .then(data => {
