@@ -33,7 +33,8 @@ app.service('getRate', ['$http', 'baseURL', 'APIkey', function($http, baseURL, A
       method: 'GET',
       url: `${baseURL}convert?apiKey=${APIkey}&q=${curFrom}_${curTo}&compact=ultra`
     }).then(({data}) => {
-      return data[Object.keys(data)];
+      const [key] = Object.keys(data);
+      return data[key];
     });
   }
 }]);
