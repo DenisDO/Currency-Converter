@@ -7,11 +7,11 @@ const browserSync = require('browser-sync').create();
 
 
 const path = {
-    app: {
-      baseDir: 'app/',
-      html: 'app/',
-      scripts: 'app/scripts/',
-      styles: 'app/styles/'
+    dist: {
+      baseDir: 'dist/',
+      html: 'dist/',
+      scripts: 'dist/scripts/',
+      styles: 'dist/styles/'
     },
     src: {
       html: 'src/index.html',
@@ -27,7 +27,7 @@ const path = {
 
 gulp.task('html', function() {
     gulp.src(path.src.html)
-      .pipe(gulp.dest(path.app.html));
+      .pipe(gulp.dest(path.dist.html));
 });
 
 gulp.task('script', function() {
@@ -35,35 +35,35 @@ gulp.task('script', function() {
       .pipe(sourcemaps.init())
       .pipe(concat('index.js'))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(path.app.scripts));
+      .pipe(gulp.dest(path.dist.scripts));
 });
 
 gulp.task('script:build', function() {
   return gulp.src([path.src.scripts.main, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
     .pipe(concat('index.js'))
     .pipe(uglify())
-    .pipe(gulp.dest(path.app.scripts));
+    .pipe(gulp.dest(path.dist.scripts));
 });
 
 gulp.task('style', function() {
     gulp.src(path.src.styles)
       .pipe(sass())
-      .pipe(gulp.dest(path.app.styles));
+      .pipe(gulp.dest(path.dist.styles));
 });
 
 gulp.task('style:build', function() {
   gulp.src(path.src.styles)
     .pipe(sass())
-    .pipe(gulp.dest(path.app.styles));
+    .pipe(gulp.dest(path.dist.styles));
 });
 
 gulp.task('server', ['html', 'script', 'style'], function(done) {
     browserSync.init({
       server: {
-        baseDir: path.app.baseDir
+        baseDir: path.dist.baseDir
       },
       host: 'localhost',
-      files: [path.app.html, path.app.scripts, path.app.styles]
+      files: [path.dist.html, path.dist.scripts, path.dist.styles]
     });
     done();
 });
