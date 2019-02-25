@@ -15,12 +15,7 @@ const path = {
     },
     src: {
       html: 'src/index.html',
-      scripts: {
-          main: 'src/scripts/main.js',
-          services: 'src/scripts/services.js',
-          filters: 'src/scripts/filters.js',
-          controller: 'src/scripts/controller.js'
-      },
+      scripts: 'src/js/**/*.js',
       styles: 'src/styles/main.scss'
     }
 };
@@ -31,7 +26,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('script', function() {
-    return gulp.src([path.src.scripts.main, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
+    return gulp.src([path.src.scripts])
       .pipe(sourcemaps.init())
       .pipe(concat('index.js'))
       .pipe(sourcemaps.write())
@@ -39,7 +34,7 @@ gulp.task('script', function() {
 });
 
 gulp.task('script:build', function() {
-  return gulp.src([path.src.scripts.main, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
+  return gulp.src([path.src.scripts])
     .pipe(concat('index.js'))
     .pipe(uglify())
     .pipe(gulp.dest(path.dist.scripts));
@@ -71,10 +66,7 @@ gulp.task('server', ['html', 'script', 'style'], function(done) {
 gulp.task('watch', function() {
   gulp.watch(path.src.html, ['html']);
   gulp.watch(path.src.styles, ['style']);
-  gulp.watch(path.src.scripts.main, ['script']);
-  gulp.watch(path.src.scripts.services, ['script']);
-  gulp.watch(path.src.scripts.filters, ['script']);
-  gulp.watch(path.src.scripts.controller, ['script']);
+  gulp.watch(path.src.scripts, ['script']);
 });
 
 gulp.task('default', ['watch', 'server']);
