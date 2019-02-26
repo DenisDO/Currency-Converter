@@ -1,24 +1,29 @@
 app.controller('CurrencyController', [
-    'getRate',
-    'getListOfCurrencies',
-    'calcExchange',
-    'commissionPercantage',
-    function(getRate, getListOfCurrencies, calcExchange, commissionPercantage) {
+    '$scope',
+    'APIservice',
+    'feePercantage',
+    'defaultFrom',
+    'defaultTo',
+    'defaultPercantage',
+    function($scope, APIservice, feePercantage, defaultFrom, defaultTo, defaultPercantage) {
 
-    this.listOfCurrencies = getListOfCurrencies.getData();
-    this.defaultFrom = 'EUR';
-    this.defaultTo = 'UAH';
-    this.commissionPercantage = commissionPercantage;
-    this.defaultPercantage = 0;
+    this.listOfCurrencies = APIservice.getListOfCurrencies();
+    this.defaultFrom = defaultFrom;
+    this.defaultTo = defaultTo;
+    this.feePercantage = feePercantage;
+    this.defaultPercantage = defaultPercantage;
+
+    $scope.$watchGroup(['curCont.defaultFrom', 'curCont.defaultTo'], () => {
+        this.updateData();
+    });
+
+    $scope.$watchGroup(['curCont.inputToExchange', 'curCont.defaultPercantage'], () => {
+        this.toExchange();
+    });
 
     this.toExchange = () => {
-        const exchangeValue = calcExchange.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
+        const exchangeValue = APIservice.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
         this.inputToGet = +exchangeValue.toFixed(2);
-    };
-
-    this.toGet = () => {
-        const exchangeValue = calcExchange.calcExchangeValue(this.inputToGet, this.rate, this.defaultPercantage);
-        this.inputToExchange = +exchangeValue.toFixed(2);
     };
 
     this.revertExchange = () => {
@@ -28,12 +33,10 @@ app.controller('CurrencyController', [
     };
 
     this.updateData = () => {
-        getRate.getData(this.defaultFrom, this.defaultTo)
+        APIservice.getRate(this.defaultFrom, this.defaultTo)
             .then(data => {
                 this.rate = data;
                 this.toExchange();
             });
     };
-
-    this.updateData();
 }]);

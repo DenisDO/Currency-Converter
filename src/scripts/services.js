@@ -1,11 +1,14 @@
-app.constant('baseURL', 'https://free.currencyconverterapi.com/api/v6/');
-app.constant('APIkey', '4483a148b31992545c54');
-app.constant('commissionPercantage', [0, 2, 5, 10]);
+app.value('baseURL', 'https://free.currencyconverterapi.com/api/v6/');
+app.value('APIkey', '4483a148b31992545c54');
+app.value('feePercantage', [0, 2, 5, 10]);
+app.value('defaultFrom', 'EUR');
+app.value('defaultTo', 'UAH');
+app.value('defaultPercantage', 0);
 
-app.service('getListOfCurrencies', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
-  const listOfCurrencies = [];
+app.service('APIservice', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
+  this.getListOfCurrencies = () => {
+    const listOfCurrencies = [];
 
-  this.getData = () => {
     $http({
       method: 'GET',
       url: `${baseURL}currencies?apiKey=${APIkey}`
@@ -19,16 +22,8 @@ app.service('getListOfCurrencies', ['$http', 'baseURL', 'APIkey', function($http
 
     return listOfCurrencies;
   }
-}]);
 
-app.service('calcExchange', [function() {
-  this.calcExchangeValue = (value, rate, percentage) => {
-    return (value * rate) + (value * rate) / 100 * percentage;
-  };
-}]);
-
-app.service('getRate', ['$http', 'baseURL', 'APIkey', function($http, baseURL, APIkey) {
-  this.getData = (curFrom, curTo) => {
+  this.getRate = (curFrom, curTo) => {
     return $http({
       method: 'GET',
       url: `${baseURL}convert?apiKey=${APIkey}&q=${curFrom}_${curTo}&compact=ultra`
@@ -37,4 +32,8 @@ app.service('getRate', ['$http', 'baseURL', 'APIkey', function($http, baseURL, A
       return data[key];
     });
   }
+  
+  this.calcExchangeValue = (value, rate, percentage) => {
+    return (value * rate) - (value * rate) / 100 * percentage;
+  };
 }]);
