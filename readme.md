@@ -23,7 +23,7 @@ This converter uses free version of [Currency Converter API](http://free.currenc
 
 ## :rocket: Demo
 
-[Click here to see demo!](https://denisdo.github.io/Currency-Converter/app/)
+[Click here to see demo!](https://denisdo.github.io/CurrencyConverter/index.html)
 
 <p align="center">
   <img src="https://media.giphy.com/media/2UA9gVaIwhasyNyx04/giphy.gif" alt="Currency Converter GIF">
