@@ -5,57 +5,40 @@ const uglify = require('gulp-uglify');
 const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
 
-
 const path = {
     dist: {
       baseDir: 'dist/',
-      html: {
-        index: 'dist/',
-        components: 'dist/components/',
-        directives: 'dist/directives/'
-      },
+      html: 'dist/',
       scripts: 'dist/scripts/',
-      styles: 'dist/styles/'
+      templates: 'dist/templates/',
+      styles: 'dist/styles/',
+      images: 'dist/images/'
     },
     src: {
-      html: {
-        index: 'src/index.html',
-        components: {
-          cyrrencyConverter: 'src/components/currency_converter/template.html'
-        },
-        directives: {
-          noInternetWrapper: 'src/directives/no_internet_wrapper/template.html'
-        }
-      },
-      scripts: {
-          main: 'src/scripts/main.js',
-          components: {
-            cyrrencyConverter: {
-              index: 'src/components/currency_converter/index.js',
-              controller: 'src/components/currency_converter/currency_converter.controller.js'
-            }
-          },
-          directives: {
-            noInternetWrapper: 'src/directives/no_internet_wrapper/index.js'
-          },
-          services: 'src/scripts/services.js',
-          filters: 'src/scripts/filters.js'
-      },
-      styles: 'src/styles/main.scss'
+      html: 'src/index.html',
+      templates: [
+        'src/components/**/*.html',
+        'src/directives/**/*.html'
+      ],
+      scripts: [
+        'src/scripts/**/*.js',
+        'src/components/**/*.js',
+        'src/directives/**/*.js'
+      ],
+      styles: 'src/styles/main.scss',
+      images: 'src/images/**/*.{jpg,jpeg,png}'
     }
 };
 
 gulp.task('html', function() {
-    gulp.src(path.src.html.index)
-      .pipe(gulp.dest(path.dist.html.index));
-    gulp.src(path.src.html.components.cyrrencyConverter)
-      .pipe(gulp.dest(path.dist.html.components));
-    gulp.src(path.src.html.directives.noInternetWrapper)
-      .pipe(gulp.dest(path.dist.html.directives));
+    gulp.src(path.src.html)
+      .pipe(gulp.dest(path.dist.html));
+    gulp.src(path.src.templates)
+      .pipe(gulp.dest(path.dist.templates));
 });
 
 gulp.task('script', function() {
-    return gulp.src([path.src.scripts.main, path.src.scripts.components.cyrrencyConverter.index, path.src.scripts.directives.noInternetWrapper, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.components.cyrrencyConverter.controller])
+    gulp.src(path.src.scripts)
       .pipe(sourcemaps.init())
       .pipe(concat('index.js'))
       .pipe(sourcemaps.write())
@@ -63,10 +46,15 @@ gulp.task('script', function() {
 });
 
 gulp.task('script:build', function() {
-  return gulp.src([path.src.scripts.main, path.src.scripts.components.cyrrencyConverter.index, path.src.scripts.directives.noInternetWrapper, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.components.cyrrencyConverter.controller])
+  gulp.src(path.src.scripts)
     .pipe(concat('index.js'))
     .pipe(uglify())
     .pipe(gulp.dest(path.dist.scripts));
+});
+
+gulp.task('image', function() {
+  gulp.src(path.src.images)
+    .pipe(gulp.dest(path.dist.images));
 });
 
 gulp.task('style', function() {
@@ -87,23 +75,23 @@ gulp.task('server', ['html', 'script', 'style'], function(done) {
         baseDir: path.dist.baseDir
       },
       host: 'localhost',
-      files: [path.dist.html.index, path.dist.scripts, path.dist.styles]
+      files: [
+        path.dist.html,
+        path.dist.templates,
+        path.dist.styles,
+        path.dist.scripts,
+        path.dist.images
+      ]
     });
     done();
 });
 
 gulp.task('watch', function() {
-  gulp.watch(path.src.html.index, ['html']);
-  gulp.watch(path.src.scripts.components.cyrrencyConverter.index, ['html']);
-  gulp.watch(path.src.scripts.directives.noInternetWrapper, ['html']);
+  gulp.watch(path.src.html, ['html']);
   gulp.watch(path.src.styles, ['style']);
-  gulp.watch(path.src.scripts.main, ['script']);
-  gulp.watch(path.src.scripts.currencyConverter, ['script']);
-  gulp.watch(path.src.scripts.noInternerWrapper, ['script']);
-  gulp.watch(path.src.scripts.services, ['script']);
-  gulp.watch(path.src.scripts.filters, ['script']);
-  gulp.watch(path.src.scripts.components.cyrrencyConverter.controller, ['script']);
+  gulp.watch(path.src.scripts, ['script']);
+  gulp.watch(path.src.images, ['image']);
 });
 
 gulp.task('default', ['watch', 'server']);
-gulp.task('build', ['html', 'script:build', 'style:build']);
+gulp.task('build', ['html', 'script:build', 'style:build', 'image']);
