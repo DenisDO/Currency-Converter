@@ -48,9 +48,8 @@ gulp.task('script', function() {
 });
 
 gulp.task('script:build', function() {
-  gulp.src(path.src.scripts)
+    gulp.src(path.src.scripts)
     .pipe(concat('index.js'))
-    .pipe(uglify())
     .pipe(gulp.dest(path.dist.scripts));
 });
 
