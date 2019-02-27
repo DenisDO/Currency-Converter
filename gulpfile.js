@@ -21,7 +21,9 @@ const path = {
         'src/directives/**/*.html'
       ],
       scripts: [
-        'src/scripts/**/*.js',
+        'src/scripts/main.js',
+        'src/scripts/filters.js',
+        'src/scripts/services.js',
         'src/components/**/*.js',
         'src/directives/**/*.js'
       ],
