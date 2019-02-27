@@ -1,5 +1,5 @@
 app.directive('noInternetWrapper', function() {
   return {
-    templateUrl: '../components/noInternetWrapper.html'
+    templateUrl: '../templates/no_internet_wrapper/noInternetWrapper.template.html'
   };
 });

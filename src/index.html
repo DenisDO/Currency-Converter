@@ -3,6 +3,7 @@
   <head>
     <title>Currency Converter</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+    <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
     <script src="./scripts/index.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="./styles/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -11,6 +12,27 @@
   </head>
   <body ng-app="currencyApp">
     <no-internet-wrapper></no-internet-wrapper>
-    <currency-converter></currency-converter>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <a  ui-sref="root" ui-sref-active="active" class="navbar-brand" href="#">
+        <img src="./images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Currency Converter
+      </a>
+    
+      <div class="navbar navbar-expand-sm" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a ui-sref="home" ui-sref-active="active" class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a ui-sref="converter" ui-sref-active="active" class="nav-link" href="#">Converter</a>
+          </li>
+          <li class="nav-item">
+            <a ui-sref="currencies" ui-sref-active="active" class="nav-link" href="#">Currencies</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <ui-view class="container"></ui-view>
   </body>
 </html>

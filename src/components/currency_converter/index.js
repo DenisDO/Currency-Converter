@@ -1,4 +1,4 @@
 app.component('currencyConverter', {
-    templateUrl: '../components/cyrrencyConverter.html',
+    templateUrl: '../templates/currency_converter/currencyConverter.template.html',
     controller: 'CurrencyController'
 });
