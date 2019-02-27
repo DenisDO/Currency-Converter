@@ -7,7 +7,7 @@ app.controller('CurrencyController', [
     'defaultPercantage',
     function($scope, APIservice, feePercantage, defaultFrom, defaultTo, defaultPercantage) {
 
-    this.listOfCurrencies = APIservice.getListOfCurrencies();
+    // this.listOfCurrencies = APIservice.getListOfCurrencies();
     this.defaultFrom = defaultFrom;
     this.defaultTo = defaultTo;
     this.feePercantage = feePercantage;
@@ -32,11 +32,11 @@ app.controller('CurrencyController', [
         this.updateData();
     };
 
-    this.updateData = () => {
-        APIservice.getRate(this.defaultFrom, this.defaultTo)
-            .then(data => {
-                this.rate = data;
-                this.toExchange();
-            });
-    };
+    // this.updateData = () => {
+    //     APIservice.getRate(this.defaultFrom, this.defaultTo)
+    //         .then(data => {
+    //             this.rate = data;
+    //             this.toExchange();
+    //         });
+    // };
 }]);
