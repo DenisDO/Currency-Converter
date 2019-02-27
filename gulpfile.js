@@ -11,7 +11,8 @@ const path = {
       baseDir: 'dist/',
       html: {
         index: 'dist/',
-        components: 'dist/components/'
+        components: 'dist/components/',
+        directives: 'dist/directives/'
       },
       scripts: 'dist/scripts/',
       styles: 'dist/styles/'
@@ -20,14 +21,20 @@ const path = {
       html: {
         index: 'src/index.html',
         components: {
-          cyrrencyConverter: 'src/components/cyrrencyConverter.html',
-          noInternetWrapper: 'src/components/noInternetWrapper.html'
+          cyrrencyConverter: 'src/components/currency_converter/template.html'
+        },
+        directives: {
+          noInternetWrapper: 'src/directives/no_internet_wrapper/template.html'
         }
       },
       scripts: {
           main: 'src/scripts/main.js',
-          currencyConverter: 'src/scripts/currencyConverter.js',
-          noInternerWrapper: 'src/scripts/noInternerWrapper.js',
+          components: {
+            cyrrencyConverter: 'src/components/currency_converter/index.js'
+          },
+          directives: {
+            noInternetWrapper: 'src/directives/no_internet_wrapper/index.js'
+          },
           services: 'src/scripts/services.js',
           filters: 'src/scripts/filters.js',
           controller: 'src/scripts/controller.js'
@@ -41,12 +48,12 @@ gulp.task('html', function() {
       .pipe(gulp.dest(path.dist.html.index));
     gulp.src(path.src.html.components.cyrrencyConverter)
       .pipe(gulp.dest(path.dist.html.components));
-    gulp.src(path.src.html.components.noInternetWrapper)
-      .pipe(gulp.dest(path.dist.html.components));
+    gulp.src(path.src.html.directives.noInternetWrapper)
+      .pipe(gulp.dest(path.dist.html.directives));
 });
 
 gulp.task('script', function() {
-    return gulp.src([path.src.scripts.main, path.src.scripts.currencyConverter, path.src.scripts.noInternerWrapper, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
+    return gulp.src([path.src.scripts.main, path.src.scripts.components.cyrrencyConverter, path.src.scripts.directives.noInternetWrapper, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
       .pipe(sourcemaps.init())
       .pipe(concat('index.js'))
       .pipe(sourcemaps.write())
@@ -54,7 +61,7 @@ gulp.task('script', function() {
 });
 
 gulp.task('script:build', function() {
-  return gulp.src([path.src.scripts.main, path.src.scripts.currencyConverter, path.src.scripts.noInternerWrapper, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
+  return gulp.src([path.src.scripts.main, path.src.scripts.components.cyrrencyConverter, path.src.scripts.directives.noInternetWrapper, path.src.scripts.services, path.src.scripts.filters, path.src.scripts.controller])
     .pipe(concat('index.js'))
     .pipe(uglify())
     .pipe(gulp.dest(path.dist.scripts));
@@ -85,8 +92,8 @@ gulp.task('server', ['html', 'script', 'style'], function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(path.src.html.index, ['html']);
-  gulp.watch(path.src.html.components.cyrrencyConverter, ['html']);
-  gulp.watch(path.src.html.components.noInternetWrapper, ['html']);
+  gulp.watch(path.src.scripts.components.cyrrencyConverter, ['html']);
+  gulp.watch(path.src.scripts.directives.noInternetWrapper, ['html']);
   gulp.watch(path.src.styles, ['style']);
   gulp.watch(path.src.scripts.main, ['script']);
   gulp.watch(path.src.scripts.currencyConverter, ['script']);
