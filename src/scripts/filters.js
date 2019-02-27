@@ -5,4 +5,3 @@ app.filter('excludeFrom', [function() {
     });
   };
 }]);
-  
