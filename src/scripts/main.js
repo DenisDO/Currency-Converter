@@ -5,6 +5,6 @@ app
     APIserviceProvider.setURL('https://free.currencyconverterapi.com/api/v6/');
     APIserviceProvider.setKey('4483a148b31992545c54');
 }])
-.run([function() {
-    console.log(navigator.onLine);
+.run(['$rootScope', function($rootScope) {
+    $rootScope.internetStatus = navigator.onLine;
 }]);

@@ -3,3 +3,13 @@
     height: 38px;
     margin-bottom: 16px;
 }
+
+.general_wrapper {
+    background-color: rgba(128, 128, 128, 0.9);
+    text-align: center;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 9999;
+}
