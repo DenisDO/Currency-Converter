@@ -3,7 +3,7 @@ app.value('defaultFrom', 'EUR');
 app.value('defaultTo', 'UAH');
 app.value('defaultPercantage', 0);
 
-app.provider('APIservice', function() {
+app.provider('CurrencyAPIservice', function() {
 
   let baseURL = '';
   let APIkey = '';
@@ -11,23 +11,27 @@ app.provider('APIservice', function() {
   this.setURL = url => baseURL = url;
   this.setKey = key => APIkey = key;
   
+  this.listOfCurrencies = {};
+  this.currenciesCodes = [];
+
   this.$get = ['$http', function($http) {
     return {
+
       getListOfCurrencies: () => {
-        const listOfCurrencies = [];
-    
-        $http({
+        return $http({
           method: 'GET',
           url: `${baseURL}currencies?apiKey=${APIkey}`
         }).then(({data}) => {
-            const currencues = data.results;
-            
-            for (const key in currencues) {
-              listOfCurrencies.push(currencues[key].id);
-            };
+          this.listOfCurrencies = angular.copy(data.results);
+          return this.listOfCurrencies;
         });
-    
-        return listOfCurrencies;
+      },
+
+      getCurrenciesCodes: list => {
+        for (const key in list) {
+          this.currenciesCodes.push(list[key].id);
+        };
+        return this.currenciesCodes;
       },
     
       getRate: (curFrom, curTo) => {
