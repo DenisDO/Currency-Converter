@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
-const uglify = require('gulp-uglify');
 const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
 
@@ -89,6 +88,7 @@ gulp.task('server', ['html', 'script', 'style'], function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(path.src.html, ['html']);
+  gulp.watch(path.src.templates, ['html']);
   gulp.watch(path.src.styles, ['style']);
   gulp.watch(path.src.scripts, ['script']);
   gulp.watch(path.src.images, ['image']);
