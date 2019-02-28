@@ -69,7 +69,7 @@ gulp.task('style:build', function() {
     .pipe(gulp.dest(path.dist.styles));
 });
 
-gulp.task('server', ['html', 'script', 'style'], function(done) {
+gulp.task('server', ['html', 'script', 'style', 'image'], function(done) {
     browserSync.init({
       server: {
         baseDir: path.dist.baseDir
