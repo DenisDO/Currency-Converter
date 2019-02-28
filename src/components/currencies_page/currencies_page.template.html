@@ -1,0 +1,18 @@
+<section ng-controller="currenciesPageController as currenciesPageCont">
+    <table class="table table-hover">
+        <thead>
+          <tr class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="cur in $ctrl.currencies">
+            <th scope="row">{{ $index + 1 }}</th>
+            <td>{{ cur.currencyName }}</td>
+            <td>{{ cur.id }}</td>
+          </tr>
+        </tbody>
+    </table>
+</section>
