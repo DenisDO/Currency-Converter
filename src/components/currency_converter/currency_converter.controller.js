@@ -1,13 +1,13 @@
 app.controller('CurrencyController', [
     '$scope',
-    'APIservice',
+    'CurrencyAPIservice',
     'feePercantage',
     'defaultFrom',
     'defaultTo',
     'defaultPercantage',
-    function($scope, APIservice, feePercantage, defaultFrom, defaultTo, defaultPercantage) {
+    function($scope, CurrencyAPIservice, feePercantage, defaultFrom, defaultTo, defaultPercantage) {
 
-    this.listOfCurrencies = APIservice.getListOfCurrencies();
+    this.listOfCurrencies = null;
     this.defaultFrom = defaultFrom;
     this.defaultTo = defaultTo;
     this.feePercantage = feePercantage;
@@ -22,7 +22,7 @@ app.controller('CurrencyController', [
     });
 
     this.toExchange = () => {
-        const exchangeValue = APIservice.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
+        const exchangeValue = CurrencyAPIservice.calcExchangeValue(this.inputToExchange, this.rate, this.defaultPercantage);
         this.inputToGet = +exchangeValue.toFixed(2);
     };
 
@@ -33,7 +33,7 @@ app.controller('CurrencyController', [
     };
 
     this.updateData = () => {
-        APIservice.getRate(this.defaultFrom, this.defaultTo)
+        CurrencyAPIservice.getRate(this.defaultFrom, this.defaultTo)
             .then(data => {
                 this.rate = data;
                 this.toExchange();
